@@ -16,6 +16,15 @@ class _InsertNotePageState extends State<InsertNotePage> {
   late Note _note;
   late String _title;
   String _desc = "";
+  Color _selColor = Colors.transparent;
+  List<Color> _colors = [
+    Color(0xffFFCC70),
+    Color(0xffA1CCD1),
+    Color(0xffE2F6CA),
+    Color(0xffCBFFA9),
+    Color(0xffF8E8EE),
+    Color(0xffF4E0B9),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +40,7 @@ class _InsertNotePageState extends State<InsertNotePage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  _note = Note(id: 6, title: _title, description: _desc);
+                  _note = Note(id: 6, title: _title, description: _desc, color: _selColor);
                   context.read<NotesBloc>()..add(InsertNoteEvent(_note));
                   Get.back();
                 },
@@ -42,8 +51,24 @@ class _InsertNotePageState extends State<InsertNotePage> {
           height: Get.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Container(
+                  height: 80,
+                  margin: EdgeInsets.all(16),
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _colors.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                            onTap: (){
+                              setState(() {
+                                _selColor=_colors[index];
+                              });
+                            },
+                            child: ColorItem(color: _colors[index]));
+                      }, separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(width: 16,);
+                  },)),
               Container(
                 margin: EdgeInsets.all(16),
                 child: TextField(
@@ -58,18 +83,23 @@ class _InsertNotePageState extends State<InsertNotePage> {
               Container(
                 margin: EdgeInsets.all(16),
                 child: Row(
-                  children: [Text("${_desc.length} characters",style: TextStyle(color: Colors.black38),)],
+                  children: [
+                    Text(
+                      "${_desc.length} characters",
+                      style: TextStyle(color: Colors.black38),
+                    )
+                  ],
                 ),
               ),
               Expanded(
                 child: Container(
+                  color: _selColor,
                   margin: EdgeInsets.all(16),
                   child: TextField(
                     onChanged: (q) {
                       setState(() {
                         _desc = q;
                       });
-
                     },
                     decoration: InputDecoration(
                         hintText: 'Start typings',
@@ -84,6 +114,24 @@ class _InsertNotePageState extends State<InsertNotePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ColorItem extends StatelessWidget {
+  final Color color;
+
+  const ColorItem({super.key, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70,
+      width: 70,
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+          border: Border.all(color: Colors.black38, width: 5)),
     );
   }
 }

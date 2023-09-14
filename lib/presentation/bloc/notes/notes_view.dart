@@ -79,7 +79,7 @@ class NotesPage extends StatelessWidget {
                   alignment: Alignment.bottomLeft,
                   child: FloatingActionButton(
                     onPressed: () {
-                      context.read<NotesBloc>().add(const DeleteNoteEvent(Note(
+                      context.read<NotesBloc>().add( DeleteNoteEvent(Note(
                           id: 3, title: "Watch", description: "All is well")));
                     },
                     foregroundColor: Colors.white,
@@ -117,10 +117,9 @@ class CardNoteItem extends StatelessWidget {
     return Card(
       elevation: 5,
       shadowColor: Colors.black12,
-      color: Colors.white54,
+      color: note.color,
       margin: EdgeInsets.all(16),
       child: Container(
-          height: 100,
           width: 500,
           padding: EdgeInsets.all(16),
           child: Column(

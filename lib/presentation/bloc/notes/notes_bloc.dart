@@ -9,8 +9,8 @@ import 'notes_state.dart';
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
   final List<Note> allNotes = [
-    const Note(id: 1, title: "Baazar", description: "Its awesome day for baazar"),
-    const Note(id: 2, title: "Office", description: "Its awesome day for office"),
+     Note(id: 1, title: "Baazar", description: "Its awesome day for baazar"),
+     Note(id: 2, title: "Office", description: "Its awesome day for office"),
   ];
 
   NotesBloc() : super(NotesEmpty()) {
