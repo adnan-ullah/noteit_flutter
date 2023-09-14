@@ -14,7 +14,7 @@ class NotePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Weather',
+          'Note',
           style: TextStyle(color: Colors.orange),
         ),
       ),
