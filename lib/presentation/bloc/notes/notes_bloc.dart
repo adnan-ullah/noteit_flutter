@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz_unsafe.dart';
+import 'package:noteit/domain/usecases/GetAllProductUseCase.dart';
 import 'package:noteit/presentation/bloc/note/note_event.dart';
 
 import '../../../domain/models/Note.dart';
@@ -7,15 +8,30 @@ import 'notes_event.dart';
 import 'notes_state.dart';
 
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
+  final GetAllProductUseCase _getAllProductUseCase;
 
   final List<Note> allNotes = [
      Note(id: 1, title: "Baazar", description: "Its awesome day for baazar"),
      Note(id: 2, title: "Office", description: "Its awesome day for office"),
   ];
 
-  NotesBloc() : super(NotesEmpty()) {
+
+
+  NotesBloc(this._getAllProductUseCase) : super(NotesEmpty()) {
+
 
     on<ShowAllNotes>((event, emit) async {
+      final results =await _getAllProductUseCase.execute();
+
+      results.fold(
+            (failure) {
+              print("data123"+ failure.toString());
+        },
+            (data) {
+              print("data123"+ data.length.toString());
+        },
+      );
+
       emit(NotesLoading());
       emit(AllNotesState(allNotes));
     });

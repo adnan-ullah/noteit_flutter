@@ -4,6 +4,9 @@ import 'package:noteit/presentation/bloc/note/note_view.dart';
 import 'package:noteit/presentation/bloc/notes/notes_bloc.dart';
 import 'package:noteit/presentation/bloc/notes/notes_event.dart';
 import 'package:noteit/presentation/bloc/notes/notes_view.dart';
+import 'package:noteit/presentation/bloc/products/product_bloc.dart';
+import 'package:noteit/presentation/bloc/products/product_event.dart';
+import 'package:noteit/presentation/bloc/products/product_view.dart';
 import 'package:noteit/presentation/bloc/weather/WeatherBloc.dart';
 import 'package:noteit/presentation/pages/WeatherPage.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +28,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) =>di.locator<NotesBloc>()..add(ShowAllNotes(null))),
-        BlocProvider(create: (_)=> di.locator<NoteBloc>()..add(ShowNoteDetailsEvent(null)))
+        BlocProvider(create: (_)=> di.locator<NoteBloc>()..add(ShowNoteDetailsEvent(null))),
+        BlocProvider(create: (_)=> di.locator<ProductBloc>()..add(ShowAllProducts(null))),
       ],
       child: GetMaterialApp(
         title: 'Flutter Demo',
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: NotesPage(),
+        home: ProductsPage(),
       ),
     );
   }

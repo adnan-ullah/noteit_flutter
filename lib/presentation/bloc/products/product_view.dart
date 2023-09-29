@@ -2,26 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:noteit/presentation/bloc/note/note_view.dart';
+import 'package:noteit/domain/models/Product.dart';
+import 'package:noteit/presentation/bloc/products/product_bloc.dart';
+import 'package:noteit/presentation/bloc/products/product_state.dart';
 import 'package:noteit/presentation/pages/InsertNotePage.dart';
 
-import '../../../domain/models/Note.dart';
-import 'notes_bloc.dart';
-import 'notes_event.dart';
-import 'notes_state.dart';
-
-class NotesPage extends StatelessWidget {
-
-
+class ProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Notes',
+          'Products',
           style: TextStyle(color: Colors.orange),
         ),
       ),
@@ -31,47 +24,30 @@ class NotesPage extends StatelessWidget {
             TextField(
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: 'Enter notes name',
+                hintText: 'Enter products name',
               ),
               onChanged: (query) {
-                context.read<NotesBloc>()..add(FilterAllNotes(query));
+                //context.read<NotesBloc>()..add(FilterAllNotes(query));
               },
             ),
-            BlocBuilder<NotesBloc, NotesState>(builder: (context, state) {
-              if (state is NotesEmpty) {
+            BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+              if (state is ProductError) {
                 return Container();
-              } else if (state is NotesLoading) {
+              } else if (state is ProductLoading) {
                 return CircularProgressIndicator();
-              } else if (state is FilterNotes) {
-                return Expanded(
-                  child: ListView.builder(
-                      itemCount: state.filterNotes.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                            leading: const Icon(Icons.list),
-                            trailing: Text(
-                              state.filterNotes[index].title,
-                              style:
-                                  TextStyle(color: Colors.green, fontSize: 15),
-                            ),
-                            title: Text(
-                              state.filterNotes[index].title,
-                            ));
-                      }),
-                );
-              } else if (state is AllNotesState) {
+              } else if (state is AllProductsState) {
                 return Expanded(
                     child: MasonryGridView.count(
-                      padding: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   crossAxisCount: 2,
-                  itemCount: state.allNotes.length,
+                  itemCount: state.allProducts.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: (){
-                        Get.to(NotePage(),arguments: state.allNotes[index]);
+                      onTap: () {
+                        //  Get.to(NotePage(),arguments: state.allProducts[index]);
                       },
-                      child: CardNoteItem(
-                        note: state.allNotes[index],
+                      child: CardProductItem(
+                        product: state.allProducts[index],
                       ),
                     );
                   },
@@ -87,8 +63,8 @@ class NotesPage extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: FloatingActionButton(
                       onPressed: () {
-                        context.read<NotesBloc>().add(DeleteNoteEvent(Note(
-                            id: 3, title: "Watch", description: "All is well")));
+                        // context.read<NotesBloc>().add(DeleteNoteEvent(Note(
+                        //     id: 3, title: "Watch", description: "All is well")));
                       },
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.black54,
@@ -116,17 +92,17 @@ class NotesPage extends StatelessWidget {
   }
 }
 
-class CardNoteItem extends StatelessWidget {
-  final Note note;
+class CardProductItem extends StatelessWidget {
+  final Product product;
 
-  const CardNoteItem({super.key, required this.note});
+  const CardProductItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       shadowColor: Colors.black12,
-      color: note.color,
+      color: Colors.black87,
       margin: EdgeInsets.all(16),
       child: Container(
           width: 500,
@@ -136,15 +112,15 @@ class CardNoteItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${note.title}",
-                style: TextStyle(fontSize: 20),
+                "${product.title}",
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                "${note.description}",
-                style: TextStyle(fontSize: 16),
+                "${product.description}",
+                style: TextStyle(fontSize: 16, color: Colors.yellow),
               ),
             ],
           )),

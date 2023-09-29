@@ -5,4 +5,12 @@ class Urls {
       '$baseUrl/weather?q=$city&appid=$apiKey';
   static String weatherIcon(String iconCode) =>
       'http://openweathermap.org/img/wn/$iconCode@2x.png';
+
+
+
+  //products
+  static const baseNoteUrl = 'https://dummyjson.com';
+  static String currentAllProducts()=> '$baseNoteUrl/products/';
+
+
 }

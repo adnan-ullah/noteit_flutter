@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:noteit/domain/models/Note.dart';
+import 'package:noteit/injection.dart';
 import 'package:noteit/presentation/bloc/notes/notes_bloc.dart';
 import 'package:noteit/presentation/bloc/notes/notes_event.dart';
 
@@ -29,7 +30,7 @@ class _InsertNotePageState extends State<InsertNotePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NotesBloc(),
+      create: (context) => NotesBloc(locator()),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
