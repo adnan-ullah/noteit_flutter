@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:noteit/domain/models/Product.dart';
 
+
 class ProductEntity extends Equatable {
   int? id;
   String? title;

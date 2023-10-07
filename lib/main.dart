@@ -1,26 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:noteit/data/datasources/ObjectBoxStore.dart';
+import 'package:noteit/data/model/UserEntity.dart';
 import 'package:noteit/presentation/bloc/note/note_bloc.dart';
 import 'package:noteit/presentation/bloc/note/note_event.dart';
-import 'package:noteit/presentation/bloc/note/note_view.dart';
 import 'package:noteit/presentation/bloc/notes/notes_bloc.dart';
 import 'package:noteit/presentation/bloc/notes/notes_event.dart';
-import 'package:noteit/presentation/bloc/notes/notes_view.dart';
 import 'package:noteit/presentation/bloc/products/product_bloc.dart';
 import 'package:noteit/presentation/bloc/products/product_event.dart';
 import 'package:noteit/presentation/bloc/products/product_view.dart';
-import 'package:noteit/presentation/bloc/weather/WeatherBloc.dart';
-import 'package:noteit/presentation/pages/WeatherPage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'injection.dart' as di;
-import 'package:get/get.dart';
+import 'package:noteit/router/screens.dart';
+import 'package:noteit/utils/themes.dart';
 
-void main() {
-  runApp(const MyApp());
+
+
+import 'injection.dart' as di;
+
+late ObjectBox objectbox;
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  objectbox = await ObjectBox.create();
+  runApp( MyApp());
   di.init();
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -31,14 +39,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> di.locator<NoteBloc>()..add(ShowNoteDetailsEvent(null))),
         BlocProvider(create: (_)=> di.locator<ProductBloc>()..add(ShowAllProducts(null))),
       ],
-      child: GetMaterialApp(
+      child:
+      GetMaterialApp(
+        getPages: AppPages.routes,
+        initialRoute: AppPages.INITIAL,
         title: 'Flutter Demo',
-        theme: ThemeData(
-
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: ProductsPage(),
+        theme: kShrineTheme,
       ),
     );
   }

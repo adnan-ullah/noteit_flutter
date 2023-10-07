@@ -4,11 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/constants.dart';
 import '../bloc/weather/WeatherBloc.dart';
 import '../bloc/weather/WeatherEvent.dart';
-import 'package:get/get.dart';
 import '../bloc/weather/WeatherState.dart';
 
-class WeatherPage extends StatelessWidget {
-  const WeatherPage({Key? key}) : super(key: key);
+class CricketPage extends StatelessWidget {
+  const CricketPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +15,9 @@ class WeatherPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Weather',
+          'Cricket',
           style: TextStyle(color: Colors.orange),
         ),
-        actions: [
-
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              semanticLabel: 'search',
-            ),
-            onPressed: () {
-             Get.toNamed("/cricket");
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),

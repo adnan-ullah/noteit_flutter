@@ -21,4 +21,24 @@ class AllProductsState extends ProductState{
 
 }
 
+class InsertCartProductState extends ProductState{
+  Product cartProduct;
+  InsertCartProductState(this.cartProduct);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [cartProduct];
+
+}
+
+class AllCartProductsState extends ProductState{
+  List<Product> allCartProducts;
+  AllCartProductsState(this.allCartProducts);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [allCartProducts];
+
+}
+
 

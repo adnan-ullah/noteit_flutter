@@ -4,13 +4,13 @@ import 'package:noteit/domain/repositories/product_repository.dart';
 
 import '../../data/failure.dart';
 
-class GetAllProductUseCase {
+class GetAllCartProductUseCase {
   final ProductRepository repository;
 
-  GetAllProductUseCase(this.repository);
+  GetAllCartProductUseCase(this.repository);
 
   Future<Either<Failure, List<Product>>> execute() {
-    return repository.getAllProducts();
+    return repository.getAllCartProducts();
   }
 
 }

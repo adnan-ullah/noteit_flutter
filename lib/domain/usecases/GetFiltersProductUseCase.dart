@@ -4,13 +4,13 @@ import 'package:noteit/domain/repositories/product_repository.dart';
 
 import '../../data/failure.dart';
 
-class GetAllProductUseCase {
+class GetFiltersProductUseCase {
   final ProductRepository repository;
 
-  GetAllProductUseCase(this.repository);
+  GetFiltersProductUseCase(this.repository);
 
-  Future<Either<Failure, List<Product>>> execute() {
-    return repository.getAllProducts();
+  Future<Either<Failure, List<Product>>> execute(String filter) {
+    return repository.getFilterProducts(filter);
   }
 
 }

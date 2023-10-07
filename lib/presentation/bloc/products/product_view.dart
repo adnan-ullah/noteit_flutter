@@ -1,23 +1,61 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:noteit/data/model/UserEntity.dart';
 import 'package:noteit/domain/models/Product.dart';
+import 'package:noteit/main.dart';
+import 'package:noteit/objectbox.g.dart';
 import 'package:noteit/presentation/bloc/products/product_bloc.dart';
+import 'package:noteit/presentation/bloc/products/product_event.dart';
 import 'package:noteit/presentation/bloc/products/product_state.dart';
 import 'package:noteit/presentation/pages/InsertNotePage.dart';
 
+
 class ProductsPage extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Products',
-          style: TextStyle(color: Colors.orange),
+    var userBox = objectbox.store.box<UserEntity>();
+    final user1 = UserEntity(title: 'abc', description: "asc");
+    userBox.put(user1);
+    final user2 = UserEntity(title: 'xyz', description: "asc");
+    userBox.put(user2);
+    final user3 = UserEntity(title: 'pqr', description: "asc");
+    userBox.putMany([user1,user2,user3]);
+
+    final userTwo = userBox.getAll();
+    print("cas"+ userTwo[5].title!.toString());
+
+    var appBar = AppBar(
+      elevation: 0.0,
+      titleSpacing: 0.0,
+      leading: Icon(Icons.menu),
+      title: Text('Products'),
+      actions:[
+        IconButton(
+          icon: Icon(
+            Icons.search,
+            semanticLabel: 'search',
+          ),
+          onPressed: () {
+            // TODO: Add open login (104)
+          },
         ),
-      ),
+        IconButton(
+          icon: Icon(
+            Icons.tune,
+            semanticLabel: 'filter',
+          ),
+          onPressed: (){Get.toNamed("/note");},
+        ),
+      ],
+    );
+
+    return Scaffold(
+      appBar: appBar,
       body: Center(
         child: Column(
           children: [
@@ -27,7 +65,7 @@ class ProductsPage extends StatelessWidget {
                 hintText: 'Enter products name',
               ),
               onChanged: (query) {
-                //context.read<NotesBloc>()..add(FilterAllNotes(query));
+                context.read<ProductBloc>()..add(ShowFiltersProducts(query));
               },
             ),
             BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
@@ -44,15 +82,16 @@ class ProductsPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        //  Get.to(NotePage(),arguments: state.allProducts[index]);
+                        context.read<ProductBloc>()..add(AddToCart(state.allProducts[index]));
                       },
-                      child: CardProductItem(
+                      child: CartItemUpdated(
                         product: state.allProducts[index],
                       ),
                     );
                   },
                 ));
-              } else
+              }
+              else
                 return SizedBox();
             }),
             Container(
@@ -92,38 +131,52 @@ class ProductsPage extends StatelessWidget {
   }
 }
 
-class CardProductItem extends StatelessWidget {
+class CartItemUpdated extends StatelessWidget {
   final Product product;
 
-  const CardProductItem({super.key, required this.product});
+  const CartItemUpdated({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
-      shadowColor: Colors.black12,
-      color: Colors.black87,
-      margin: EdgeInsets.all(16),
-      child: Container(
-          width: 500,
-          padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${product.title}",
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "${product.description}",
-                style: TextStyle(fontSize: 16, color: Colors.yellow),
-              ),
-            ],
-          )),
+      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.all(10),
+      // TODO: Adjust card heights (103)
+      child: Column(
+        // TODO: Center items on the card (103)
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: 18 / 11,
+            child: Image.network(
+              product.images![0],fit: BoxFit.fitWidth,
+              // package: product.assetPackage,
+              // TODO: Adjust the box size (102)
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+            child: Column(
+              // TODO: Align labels to the bottom and center (103)
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // TODO: Change innermost Column (103)
+              children: <Widget>[
+                // TODO: Handle overflowing labels (103)
+                Text(
+                  "${product.title}",
+                  style: Theme.of(context).textTheme.titleLarge,
+                  maxLines: 1,
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  "${product.description}",
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

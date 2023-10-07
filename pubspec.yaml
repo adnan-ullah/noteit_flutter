@@ -43,16 +43,26 @@ dependencies:
   rxdart: ^0.27.3
   flutter_staggered_grid_view: ^0.7.0
 
+  objectbox: ^2.3.1
+  objectbox_flutter_libs: any
+  path_provider:
+
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   bloc_test: ^9.0.2
-  build_runner: ^2.1.2
+  build_runner: ^2.4.6
   mockito: ^5.0.15
   mocktail: ^0.2.0
   get:
+  objectbox_generator: any
+
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
