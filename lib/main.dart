@@ -15,14 +15,14 @@ import 'package:noteit/utils/themes.dart';
 
 
 
-import 'injection.dart' as di;
+import 'di/injection.dart' as di;
 
-late ObjectBox objectbox;
+//late ObjectBox objectbox;
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  objectbox = await ObjectBox.create();
+  //objectbox = await ObjectBox.create();
   runApp( MyApp());
   di.init();
 }

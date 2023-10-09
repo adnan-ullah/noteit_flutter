@@ -15,7 +15,7 @@ import 'package:noteit/presentation/bloc/products/product_bloc.dart';
 import 'package:noteit/presentation/bloc/weather/WeatherBloc.dart';
 
 
-import 'data/repositories/ProductRepositoryImpl.dart';
+import '../data/repositories/ProductRepositoryImpl.dart';
 
 final locator = GetIt.instance;
 

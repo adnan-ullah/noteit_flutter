@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:noteit/data/model/UserEntity.dart';
 import 'package:noteit/domain/models/Product.dart';
 import 'package:noteit/main.dart';
-import 'package:noteit/objectbox.g.dart';
+//import 'package:noteit/objectbox.g.dart';
 import 'package:noteit/presentation/bloc/products/product_bloc.dart';
 import 'package:noteit/presentation/bloc/products/product_event.dart';
 import 'package:noteit/presentation/bloc/products/product_state.dart';
@@ -18,16 +18,16 @@ class ProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userBox = objectbox.store.box<UserEntity>();
-    final user1 = UserEntity(title: 'abc', description: "asc");
-    userBox.put(user1);
-    final user2 = UserEntity(title: 'xyz', description: "asc");
-    userBox.put(user2);
-    final user3 = UserEntity(title: 'pqr', description: "asc");
-    userBox.putMany([user1,user2,user3]);
+    // var userBox = objectbox.store.box<UserEntity>();
+    // final user1 = UserEntity(title: 'abc', description: "asc");
+    // userBox.put(user1);
+    // final user2 = UserEntity(title: 'xyz', description: "asc");
+    // userBox.put(user2);
+    // final user3 = UserEntity(title: 'pqr', description: "asc");
+    // userBox.putMany([user1,user2,user3]);
 
-    final userTwo = userBox.getAll();
-    print("cas"+ userTwo[5].title!.toString());
+    // final userTwo = userBox.getAll();
+    // print("cas"+ userTwo[5].title!.toString());
 
     var appBar = AppBar(
       elevation: 0.0,

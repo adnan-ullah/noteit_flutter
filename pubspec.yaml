@@ -47,6 +47,11 @@ dependencies:
   objectbox_flutter_libs: any
   path_provider:
 
+  json_annotation: any
+  json_serializable:
+
+  freezed_annotation: any
+
 
 
 
@@ -60,6 +65,9 @@ dev_dependencies:
   mocktail: ^0.2.0
   get:
   objectbox_generator: any
+  freezed: any
+  json_serializable:
+
 
 
 

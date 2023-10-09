@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:noteit/domain/models/Note.dart';
-import 'package:noteit/injection.dart';
+import 'package:noteit/di/injection.dart';
 import 'package:noteit/presentation/bloc/notes/notes_bloc.dart';
 import 'package:noteit/presentation/bloc/notes/notes_event.dart';
 
