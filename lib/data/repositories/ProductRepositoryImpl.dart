@@ -19,7 +19,7 @@ class ProductRepositoryImpl implements ProductRepository {
     try {
       final result = await remoteDataSource.getAllProducts();
       for (var e in result) {
-        allProducts.add(e.toEntity());
+        allProducts.add(e.toMap());
       }
 
       return Right(allProducts);
@@ -33,11 +33,11 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, List<Product>>> getFilterProducts(
       String filterText) async {
-    List<Product> allProducts = [];
-    try {
+      List<Product> allProducts = [];
+      try {
       final result = await remoteDataSource.getAllProducts();
       for (var e in result) {
-        if (e.title!.startsWith(filterText)) allProducts.add(e.toEntity());
+        if (e.title!.startsWith(filterText)) allProducts.add(e.toMap());
       }
 
       return Right(allProducts);
@@ -59,7 +59,7 @@ class ProductRepositoryImpl implements ProductRepository {
     try {
       final result = await remoteDataSource.getAllProducts();
       for (var e in result) {
-        allProducts.add(e.toEntity());
+        allProducts.add(e.toMap());
       }
 
       return Right(allProducts);

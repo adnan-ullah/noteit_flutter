@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:noteit/data/datasources/ObjectBoxStore.dart';
-import 'package:noteit/data/model/UserEntity.dart';
+import 'package:noteit/data/model/user/UserEntity.dart';
 import 'package:noteit/presentation/bloc/note/note_bloc.dart';
 import 'package:noteit/presentation/bloc/note/note_event.dart';
 import 'package:noteit/presentation/bloc/notes/notes_bloc.dart';
@@ -17,12 +17,12 @@ import 'package:noteit/utils/themes.dart';
 
 import 'di/injection.dart' as di;
 
-//late ObjectBox objectbox;
+ late ObjectBox objectbox;
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //objectbox = await ObjectBox.create();
+  objectbox = await ObjectBox.create();
   runApp( MyApp());
   di.init();
 }

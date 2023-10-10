@@ -4,39 +4,95 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:1530723527421059779",
-      "lastPropertyId": "3:6623145126502543265",
-      "name": "UserEntity",
+      "id": "3:6164021053374449473",
+      "lastPropertyId": "11:2742919739488250633",
+      "name": "ProductEntity",
       "properties": [
         {
-          "id": "1:5886488971388665040",
+          "id": "1:8043429182291713850",
           "name": "id",
           "type": 6,
-          "flags": 1
+          "flags": 129
         },
         {
-          "id": "2:222031384392468797",
+          "id": "2:228953264236611203",
           "name": "title",
           "type": 9
         },
         {
-          "id": "3:6623145126502543265",
+          "id": "3:2292287436869268414",
           "name": "description",
           "type": 9
+        },
+        {
+          "id": "4:2180606330838756805",
+          "name": "discountPercentage",
+          "type": 8
+        },
+        {
+          "id": "5:8781652042973682397",
+          "name": "stock",
+          "type": 6
+        },
+        {
+          "id": "6:8643844271382368172",
+          "name": "brand",
+          "type": 9
+        },
+        {
+          "id": "7:951399966229928176",
+          "name": "category",
+          "type": 9
+        },
+        {
+          "id": "8:5189030817531592209",
+          "name": "thumbnail",
+          "type": 9
+        },
+        {
+          "id": "9:677769398469923988",
+          "name": "images",
+          "type": 30
+        },
+        {
+          "id": "10:6900771166403315223",
+          "name": "price",
+          "type": 8
+        },
+        {
+          "id": "11:2742919739488250633",
+          "name": "rating",
+          "type": 8
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:1530723527421059779",
+  "lastEntityId": "3:6164021053374449473",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    1530723527421059779,
+    1630201017835985052
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    5886488971388665040,
+    222031384392468797,
+    6623145126502543265,
+    8372218341338129593,
+    3971746479613676770,
+    2366093300643570808,
+    5327418147435784584,
+    2039923194924771340,
+    1296112713202235994,
+    4138670837695715391,
+    4464759708449479120,
+    2997341497105518439
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

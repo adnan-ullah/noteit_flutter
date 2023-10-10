@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:noteit/data/model/UserEntity.dart';
+import 'package:noteit/data/model/product/ProductEntity.dart';
 import 'package:noteit/domain/models/Product.dart';
 import 'package:noteit/main.dart';
 //import 'package:noteit/objectbox.g.dart';
@@ -12,29 +11,32 @@ import 'package:noteit/presentation/bloc/products/product_event.dart';
 import 'package:noteit/presentation/bloc/products/product_state.dart';
 import 'package:noteit/presentation/pages/InsertNotePage.dart';
 
-
 class ProductsPage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
-    // var userBox = objectbox.store.box<UserEntity>();
-    // final user1 = UserEntity(title: 'abc', description: "asc");
-    // userBox.put(user1);
-    // final user2 = UserEntity(title: 'xyz', description: "asc");
-    // userBox.put(user2);
-    // final user3 = UserEntity(title: 'pqr', description: "asc");
-    // userBox.putMany([user1,user2,user3]);
+    var productBox = objectbox.store.box<ProductEntity>();
+    final product = ProductEntity(
+        title: 'abc',
+        description: "asc",
+        id: 1,
+        price: 1,
+        discountPercentage: 1,
+        rating: 1,
+        stock: 1,
+        brand: '',
+        category: '',
+        thumbnail: '');
+    productBox.put(product);
 
-    // final userTwo = userBox.getAll();
-    // print("cas"+ userTwo[5].title!.toString());
+    final prod = productBox.get(1);
+    print("product " + prod!.title.toString());
 
     var appBar = AppBar(
       elevation: 0.0,
       titleSpacing: 0.0,
       leading: Icon(Icons.menu),
       title: Text('Products'),
-      actions:[
+      actions: [
         IconButton(
           icon: Icon(
             Icons.search,
@@ -49,7 +51,9 @@ class ProductsPage extends StatelessWidget {
             Icons.tune,
             semanticLabel: 'filter',
           ),
-          onPressed: (){Get.toNamed("/note");},
+          onPressed: () {
+            Get.toNamed("/note");
+          },
         ),
       ],
     );
@@ -82,7 +86,8 @@ class ProductsPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        context.read<ProductBloc>()..add(AddToCart(state.allProducts[index]));
+                        context.read<ProductBloc>()
+                          ..add(AddToCart(state.allProducts[index]));
                       },
                       child: CartItemUpdated(
                         product: state.allProducts[index],
@@ -90,8 +95,7 @@ class ProductsPage extends StatelessWidget {
                     );
                   },
                 ));
-              }
-              else
+              } else
                 return SizedBox();
             }),
             Container(
@@ -149,7 +153,7 @@ class CartItemUpdated extends StatelessWidget {
           AspectRatio(
             aspectRatio: 18 / 11,
             child: Image.network(
-              product.images![0],fit: BoxFit.fitWidth,
+              product.images![0], fit: BoxFit.fitWidth,
               // package: product.assetPackage,
               // TODO: Adjust the box size (102)
             ),

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../constants.dart';
 import '../exception.dart';
-import '../model/ProductEntity.dart';
+import '../model/product/ProductEntity.dart';
 
 abstract class RemoteDataSource {
   Future<WeatherEntity> getCurrentWeather(String cityName);
