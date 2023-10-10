@@ -9,8 +9,12 @@ class GetAllProductUseCase {
 
   GetAllProductUseCase(this.repository);
 
-  Future<Either<Failure, List<Product>>> execute() {
+  Future<Either<Failure, List<Product>>> execute1() {
     return repository.getAllProducts();
+  }
+
+  Either<Failure, List<Product>> execute() {
+    return repository.getAllProductsFromDB();
   }
 
 }

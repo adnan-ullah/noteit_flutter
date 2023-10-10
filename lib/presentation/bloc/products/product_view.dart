@@ -15,21 +15,21 @@ class ProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var productBox = objectbox.store.box<ProductEntity>();
-    final product = ProductEntity(
-        title: 'abc',
-        description: "asc",
-        id: 1,
-        price: 1,
-        discountPercentage: 1,
-        rating: 1,
-        stock: 1,
-        brand: '',
-        category: '',
-        thumbnail: '');
-    productBox.put(product);
-
-    final prod = productBox.get(1);
-    print("product " + prod!.title.toString());
+    // final product = ProductEntity(
+    //     title: 'abc',
+    //     description: "asc",
+    //     id: 1,
+    //     price: 1,
+    //     discountPercentage: 1,
+    //     rating: 1,
+    //     stock: 1,
+    //     brand: '',
+    //     category: '',
+    //     thumbnail: '');
+    // productBox.put(product);
+    //
+    // final prod = productBox.get(1);
+    // print("product " + prod!.title.toString());
 
     var appBar = AppBar(
       elevation: 0.0,

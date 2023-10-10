@@ -17,10 +17,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc(this._getAllProductUseCase, this._getFiltersProductUseCase,
       this._addToCartProductUseCase, this._allCartProductUseCase)
       : super(ProductError()) {
-    on<ShowAllProducts>((event, emit) async {
+    on<ShowAllProducts>((event, emit)  {
       emit(ProductLoading());
 
-      final results = await _getAllProductUseCase.execute();
+      final results =  _getAllProductUseCase.execute();
       results.fold(
         (failure) {},
         (data) {

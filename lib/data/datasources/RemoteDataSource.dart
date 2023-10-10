@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:noteit/data/model/WeatherEntity.dart';
 import 'package:http/http.dart' as http;
 
+import '../../main.dart';
 import '../constants.dart';
 import '../exception.dart';
 import '../model/product/ProductEntity.dart';
@@ -31,12 +32,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<List<ProductEntity>> getAllProducts() async {
+    var productBox = objectbox.store.box<ProductEntity>();
     final response = await client.get(Uri.parse(Urls.currentAllProducts()));
      List<ProductEntity> allProducts =[];
     if(response.statusCode == 200)
       {
         List<dynamic> values = jsonDecode(response.body)['products'];
         for (var e in values) {
+          productBox.put(ProductEntity.fromJson(e));
           allProducts.add(ProductEntity.fromJson(e as Map<String, dynamic>));
         }
 

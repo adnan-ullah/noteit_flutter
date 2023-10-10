@@ -9,6 +9,7 @@ abstract class ProductRepository {
   Future<Either<Failure, List<Product>>> getFilterProducts(String filterText);
   Future<void> addToCartProduct(Product cartProduct);
   Future<Either<Failure, List<Product>>> getAllCartProducts();
+  Either<Failure, List<Product>> getAllProductsFromDB();
   // Future<void> saveData(List<Product> data);
   // Future<List<Product>> getAllDataFromBox();
 
