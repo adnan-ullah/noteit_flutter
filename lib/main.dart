@@ -15,16 +15,20 @@ import 'package:noteit/utils/themes.dart';
 
 
 
+import 'data/datasources/RemoteDataSource.dart';
 import 'di/injection.dart' as di;
+import 'di/blocInject.dart' as diBlocs;
 
  late ObjectBox objectbox;
 
-
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   objectbox = await ObjectBox.create();
+
   runApp( MyApp());
   di.init();
+  diBlocs.initBlocs();
 }
 
 class MyApp extends StatelessWidget {

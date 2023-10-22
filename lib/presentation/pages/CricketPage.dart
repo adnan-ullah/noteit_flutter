@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/constants.dart';
+import '../../data/constants/constants.dart';
 import '../bloc/weather/WeatherBloc.dart';
 import '../bloc/weather/WeatherEvent.dart';
 import '../bloc/weather/WeatherState.dart';
