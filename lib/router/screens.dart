@@ -1,3 +1,6 @@
+import 'package:noteit/presentation/pages/dial_phone.dart';
+import 'package:noteit/presentation/pages/turbine.dart';
+
 import '../presentation/bloc/notes/notes_view.dart';
 import '../presentation/bloc/products/product_view.dart';
 import '../presentation/pages/CricketPage.dart';
@@ -12,7 +15,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Paths.PRODUCTS,
-      page: () => ProductsPage(),
+      page: () => Turbine(),
       transition: Transition.leftToRightWithFade,
       transitionDuration: Duration(milliseconds: 500),
     ),
