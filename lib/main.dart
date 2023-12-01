@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
         initialRoute: AppPages.INITIAL,
         title: 'Flutter Demo',
         theme: kShrineTheme,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

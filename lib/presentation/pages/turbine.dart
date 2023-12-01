@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 import '../../utils/colors.dart';
 
 class Turbine extends StatefulWidget {
@@ -22,6 +22,9 @@ class _TurbineState extends State<Turbine> with TickerProviderStateMixin {
 
   late Animation<double> animation2;
   late AnimationController controller2;
+
+  late Animation<double> animation3;
+  late AnimationController controller3;
   var _sides = 3.0;
 
   startAnimation() {
@@ -61,8 +64,14 @@ class _TurbineState extends State<Turbine> with TickerProviderStateMixin {
       duration: Duration(seconds: 4),
     );
 
+    controller3 = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+
     Tween<double> _radiusTween = Tween(begin: 0.0, end: 100);
     Tween<double> _rotationTween = Tween(begin: -180, end: 360);
+    Tween<double> _rotationTree = Tween(begin: -math.pi/120 , end: math.pi/120);
 
     animation = _rotationTween.animate(controller)
       ..addListener(() {
@@ -88,8 +97,21 @@ class _TurbineState extends State<Turbine> with TickerProviderStateMixin {
         }
       });
 
+    animation3 = _rotationTree.animate(controller3)
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          controller3.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          controller3.forward();
+        }
+      });
+
     controller.forward();
     controller2.forward();
+    controller3.forward();
 
     super.initState();
   }
@@ -109,52 +131,46 @@ class _TurbineState extends State<Turbine> with TickerProviderStateMixin {
           title: Text("Title"),
           backgroundColor: Colors.black54,
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFD06061A),
         body: Stack(
             children: [
 
 
+              // Positioned(
+              //   left: 0,
+              //   top: 0,
+              //   child: Container(
+              //     height: Get.height,
+              //     width: Get.width,
+              //     child: Image.asset(
+              //       'assets/ic_bg_2.jpg',
+              //       //  colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
+              //       fit: BoxFit.cover,
+              //     ),
+              //   ),
+              // ),
+
+
+
               Positioned(
-                top: 10,
-                left: 240,
-                child: SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: SvgPicture.asset(
-                    'assets/ic_moon.svg',
-                    //  colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
-                    semanticsLabel: 'A red up arrow',
-                    fit: BoxFit.contain,
+                top: 0,
+                left: 160,
+                child: Transform.rotate(
+                  angle: 0.1,
+                  child: Container(
+                    height: 200,
+                    width: 200,
+
+                    child: SvgPicture.asset(
+                      'assets/ic_moon.svg',
+                      //  colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
+                      semanticsLabel: 'A red up arrow',
+                      fit: BoxFit.contain,
+                      color: Color(0xffffe39b).withOpacity(1),
+                    ),
                   ),
                 ),
               ),
-          Positioned(
-            top: 0,
-            left: 10,
-            child: Container(
-                child: CustomPaint(
-                  painter: BigMountainPainter(Colors.teal),
-                  child: Container(),
-                )),
-          ),
-              Positioned(
-                top: 0,
-                left: 30,
-                child: Container(
-                    child: CustomPaint(
-                      painter: BigMountainPainter(Colors.white38),
-                      child: Container(),
-                    )),
-              ),
-          Positioned(
-            top: 0,
-            left: 40,
-            child: Container(
-                child: CustomPaint(
-                  painter: BigMountainPainter(Colors.grey),
-                  child: Container(),
-                )),
-          ),
 
           Positioned(
             top: 100,
@@ -171,67 +187,112 @@ class _TurbineState extends State<Turbine> with TickerProviderStateMixin {
           Positioned(
             top: 100,
             left: 10,
-            child: Container(
-                child: CustomPaint(
-                  painter: MountainPainter(Colors.greenAccent),
-                  child: Container(),
-                )),
+            child: AnimatedBuilder(
+              animation: animation3,
+              builder: (BuildContext context, Widget? child) {
+               return  Transform.rotate(
+                  angle: animation3.value,
+                  child: Container(
+                      child: CustomPaint(
+                        painter: MountainPainter(Color(0xff70ad82)),
+                        child: Container(),
+                      )),
+                );
+              }
+            ),
           ),
           Positioned(
             top: 100,
             left: 40,
-            child: Container(
-                child: CustomPaint(
-                  painter: MountainPainter(Colors.green),
-                  child: Container(),
-                )),
+            child: AnimatedBuilder(
+            animation: animation3,
+            builder: (BuildContext context, Widget? child) {
+              return  Transform.rotate(
+                angle: animation3.value,
+                child: Container(
+                    child: CustomPaint(
+                      painter: MountainPainter( Color(0xff77b689)),
+                      child: Container(),
+                    )),
+              );},
+        ),
           ),
+
           Positioned(
             top: 100,
             left: 50,
-            child: Container(
-                child: CustomPaint(
-                  painter: MountainPainter(Colors.green),
-                  child: Container(),
-                )),
+            child: AnimatedBuilder(
+              animation: animation3,
+
+              builder: (BuildContext context, Widget? child) {
+                return  Transform.rotate(
+                  angle: animation3.value,
+                  child: Container(
+                      child: CustomPaint(
+                        painter: MountainPainter( Color(0xff8eeeb6)),
+                        child: Container(),
+                      )),
+                );
+              },
+
+            ),
           ),
           Positioned(
             top: 100,
             left: 90,
-            child: Container(
-                child: CustomPaint(
-                  painter: MountainPainter(Colors.greenAccent),
-                  child: Container(),
-                )),
+            child: AnimatedBuilder(
+              animation: animation3,
+              builder: (BuildContext context, Widget? child) {
+                return  Transform.rotate(
+                  angle: animation3.value,
+                  child: Container(
+                      child: CustomPaint(
+                        painter: MountainPainter(Color(0xff144629)),
+                        child: Container(),
+                      )),
+                );
+              },
+            ),
           ),
 
 
-           Positioned(
-             top: 250,
-             left: 100,
-             child: SizedBox(
-               height: 200,
-               width: 250,
-               child: Slider(
-                  value: _sides,
-                  min: 3.0,
-                  max: 100.0,
-                  label: _sides.toInt().toString(),
-                  divisions: 7,
-                  onChanged: (value) {
-                    setState(() {
-                      _sides = value;
-                    });
-                  },
+           // Positioned(
+           //   top: 250,
+           //   left: 100,
+           //   child: SizedBox(
+           //     height: 200,
+           //     width: 250,
+           //     child: Slider(
+           //        value: _sides,
+           //        min: 3.0,
+           //        max: 100.0,
+           //        label: _sides.toInt().toString(),
+           //        divisions: 7,
+           //        onChanged: (value) {
+           //          setState(() {
+           //            _sides = value;
+           //          });
+           //        },
+           //      ),
+           //   ),
+           // ),
+
+              Positioned(
+                top: 220,
+                left: 160,
+                child: Container(child: Text(
+                  '2:10 am',
+                  style: GoogleFonts.aBeeZee(letterSpacing: 2,textStyle: TextStyle(color: Colors.white),fontSize: 40),
                 ),
-             ),
-           ),
+                ),
+              ),
+
 
               Positioned(
                 top: 280,
-                left: 180,
+                left: 160,
                 child: Container(child: Text(
-                  'The winter should come\n for moon.Because she smiles\n good that time',
+                  'The winter should come\n for the moon because she smiles\n good at that time.',
                   style: GoogleFonts.acme(textStyle: TextStyle(color: Colors.white)),
                 ),
                 ),
@@ -252,6 +313,7 @@ class _TurbineState extends State<Turbine> with TickerProviderStateMixin {
                         'assets/ic_turbine_two.svg',
                         //  colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
                         semanticsLabel: 'A red up arrow',
+                        color: Color(0xffffe4c8),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -259,6 +321,24 @@ class _TurbineState extends State<Turbine> with TickerProviderStateMixin {
                 },
             ),
           ),
+
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: Column(
+
+                  children: [
+                    FlutterLogo(size: 20,),
+                    SizedBox(height: 10,),
+                    Container(child: Text(
+                      'adnan-ullah',
+                      style: GoogleFonts.alkalami(letterSpacing: 2,textStyle:
+                      TextStyle(color:Color(0xFFFFFFFF)),fontSize: 10),
+                    ),
+                    ),
+                  ],
+                ),
+              ),
 
 
 
@@ -284,12 +364,12 @@ class BigMountainPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     var path = Path();
-    var xValue = -50.0;
+    var xValue = -120.0;
     for(int i = 0; i< 7; i++)
     {
-      path.moveTo(xValue, 800);
-      path.lineTo(xValue+ 70, 90);
-      path.lineTo(xValue+ 400, 800);
+      path.moveTo(xValue, 700);
+      path.lineTo(xValue+ 140, 90);
+      path.lineTo(xValue+ 500, 700);
       xValue = xValue+ 90;
     }
     path.close();
@@ -318,7 +398,7 @@ class MountainPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     var path = Path();
-    var xValue = -50.0;
+    var xValue = -80.0;
     for(int i = 0; i< 10; i++)
       {
         path.moveTo(xValue, 650);
